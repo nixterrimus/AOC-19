@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>import Foundation
+
+func fuelRequired(mass: Double) -&gt; Int {
+    return Int(floor(mass/3) - 2)
+}
+
+fuelRequired(mass: 12) == 2
+fuelRequired(mass: 14) == 2
+fuelRequired(mass: 1969) == 654
+fuelRequired(mass: 100756) == 33583
+
+func totalFuelRequired(mass: Double) -&gt; Int {
+    let fuel = fuelRequired(mass: mass)
+    let fuelForFuel = fuelRequired(mass: Double(fuel))
+    
+    if fuelForFuel &gt; 0 {
+        return fuel + totalFuelRequired(mass: Double(fuel))
+    }
+    
+    return fuel
+}
+
+totalFuelRequired(mass: 14) == 2
+totalFuelRequired(mass: 1969) == 966
+totalFuelRequired(mass: 100756) == 50346
+
+func result(input: String, fuelCalculator: (Double) -&gt; Int) -&gt; Int {
+    return input
+        .split(separator: "\n")
+        .map { Double($0)! }
+        .map(fuelCalculator)
+        .reduce(0) { $0 + $1}
+}
+
+let fileURL = Bundle.main.url(forResource: "input", withExtension: "txt")
+let input = try String(contentsOf: fileURL!, encoding: String.Encoding.utf8)
+
+let part1 = result(input: input, fuelCalculator: fuelRequired)
+let part2 = result(input: input, fuelCalculator: totalFuelRequired)
+result
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 1094}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/My Playground.playgroundpage/main.swift</string>
+</dict>
+</plist>
